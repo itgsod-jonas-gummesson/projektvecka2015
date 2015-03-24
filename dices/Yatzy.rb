@@ -68,4 +68,5 @@ if $keep4 ==0
 if $keep5 ==0
   $dice5=rand(1..6)
   puts "Dice five rolled #{$dice5}"
+
 end
