@@ -59,4 +59,5 @@ elsif keep4 ==1
   $dice4=rand(1..6)
 elsif keep5 ==1
   $dice5=rand(1..6)
+
 end
