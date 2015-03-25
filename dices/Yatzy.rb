@@ -1,10 +1,14 @@
 def setup
   require('colorize')
+
+  $hejsan=0
+
   $dice1=rand(1..6)
   $dice2=rand(1..6)
   $dice3=rand(1..6)
   $dice4=rand(1..6)
   $dice5=rand(1..6)
+
   $keep1=0
   $keep2=0
   $keep3=0
@@ -29,6 +33,24 @@ def setup
   $yahtzee = 'NaN'
   $chance = 'NaN'
   $total = 'NaN'
+
+  puts '
+ __     __      _    _ _______ ____________ ______
+ \ \   / //\   | |  | |__   __|___  /  ____|  ____|
+  \ \_/ //  \  | |__| |  | |     / /| |__  | |__
+   \   // /\ \ |  __  |  | |    / / |  __| |  __|
+    | |/ ____ \| |  | |  | |   / /__| |____| |____
+    |_/_/    \_\_|  |_|  |_|  /_____|______|______|'.red.on_light_white
+
+  sleep(1)
+  puts '
+  Input Player name.'
+  $player1=gets.chomp
+
+  until $hejsan == 15
+    $hejsan+=1
+    runda
+  end
 end
 def kasta
   puts 'Rolling dice...'
@@ -163,41 +185,44 @@ S-STR:     #{$s_str}
 L-STR:     #{$l_str}
 YAHTZEE:   #{$yahtzee}
 CHANCE:    #{$chance}
-TOTAL:     #{$total}
-       "
+TOTAL:     #{$total}"
+
   puts 'Assign your throw to one of the above.'
+  if $ones != 'Nan' and $twos != 'NaN' and $threes != 'NaN' and $fours != 'NaN' and $fives != 'NaN' and $sixes != 'NaN' and $ones+$twos+$threes+$fours+$fives+$sixes >= 63
+    $bonus=50
+  end
   $assign=gets.chomp
   $assign = $assign.upcase
-  if $assign == 'ONES' and $ones == 'unassigned'
+  if $assign == 'ONES' and $ones == 'NaN'
     $ones=$resultat.count(1)
-  elsif $assign == 'TWOS' and $twos == 'unassigned'
+  elsif $assign == 'TWOS' and $twos == 'NaN'
     $twos=$resultat.count(2)*2
-
-
+  elsif $assign == 'THREES' and $threes == 'NaN'
+    $threes = $resultat.count(3)*3
+  elsif $assign == 'FOURS' and $fours == 'NaN'
+    $fours = $resultat.count(4)*4
+  elsif $assign == 'FIVES' and $fives == 'NaN'
+    $fives = $resultat.count(5)*5
+  elsif $assign == 'SIXES' and $sixes == 'NaN'
+    $sixes = $resultat.count(6)*6
   else
   puts 'Input not valid, pick one of the unassigned above.'
+    assignment
   end
-
+  $keep1=0
+  $keep2=0
+  $keep3=0
+  $keep4=0
+  $keep5=0
+end
+def runda
+  kasta
+  keepies
+  kasta
+  keepies
+  kasta
+  resultaten
+  assignment
 end
 
-puts '
- __     __      _    _ _______ ____________ ______
- \ \   / //\   | |  | |__   __|___  /  ____|  ____|
-  \ \_/ //  \  | |__| |  | |     / /| |__  | |__
-   \   // /\ \ |  __  |  | |    / / |  __| |  __|
-    | |/ ____ \| |  | |  | |   / /__| |____| |____
-    |_/_/    \_\_|  |_|  |_|  /_____|______|______|'.red.on_light_white
-
-sleep(1)
-puts 'Input Player name.'
-$player1=gets.chomp
-
-kasta
-keepies
-kasta
-keepies
-kasta
-resultaten
-assignment
-
-puts $assign
+setup
