@@ -158,3 +158,4 @@ CHANCE:    #{$chance}
      "
 puts 'Assign your throw to one of the above.'
 $assign=gets.chomp
+
