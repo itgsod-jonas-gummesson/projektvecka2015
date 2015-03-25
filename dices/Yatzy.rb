@@ -1,15 +1,35 @@
-require('colorize')
-$dice1=rand(1..6)
-$dice2=rand(1..6)
-$dice3=rand(1..6)
-$dice4=rand(1..6)
-$dice5=rand(1..6)
-$keep1=0
-$keep2=0
-$keep3=0
-$keep4=0
-$keep5=0
+def setup
+  require('colorize')
+  $dice1=rand(1..6)
+  $dice2=rand(1..6)
+  $dice3=rand(1..6)
+  $dice4=rand(1..6)
+  $dice5=rand(1..6)
+  $keep1=0
+  $keep2=0
+  $keep3=0
+  $keep4=0
+  $keep5=0
 
+  $ones = 'NaN'
+  $twos = 'NaN'
+  $threes = 'NaN'
+  $fours = 'NaN'
+  $fives = 'NaN'
+  $sixes = 'NaN'
+  $sum = 'NaN'
+  $bonus = 'NaN'
+  $pair = 'NaN'
+  $pair2 = 'NaN'
+  $kind3 = 'NaN'
+  $kind4 = 'NaN'
+  $house = 'NaN'
+  $s_str = 'NaN'
+  $l_str = 'NaN'
+  $yahtzee = 'NaN'
+  $chance = 'NaN'
+  $total = 'NaN'
+end
 def kasta
   puts 'Rolling dice...'
   if $keep1 ==0
@@ -115,6 +135,50 @@ def keepies
   keepies
   end
 end
+def resultaten
+  $resultat = []
+  $resultat << $dice1
+  $resultat << $dice2
+  $resultat << $dice3
+  $resultat << $dice4
+  $resultat << $dice5
+end
+def assignment
+  puts "
+PLAYERS:   #{$player1}
+ONES:      #{$ones}
+TWOS:      #{$twos}
+THREES:    #{$threes}
+FOURS:     #{$fours}
+FIVES:     #{$fives}
+SIXES:     #{$sixes}
+SUM:       #{$sum}
+BONUS:     #{$bonus}
+PAIR:      #{$pair}
+2-PAIR:    #{$pair2}
+3-KIND:    #{$kind3}
+4-KIND:    #{$kind4}
+HOUSE:     #{$house}
+S-STR:     #{$s_str}
+L-STR:     #{$l_str}
+YAHTZEE:   #{$yahtzee}
+CHANCE:    #{$chance}
+TOTAL:     #{$total}
+       "
+  puts 'Assign your throw to one of the above.'
+  $assign=gets.chomp
+  $assign = $assign.upcase
+  if $assign == 'ONES' and $ones == 'unassigned'
+    $ones=$resultat.count(1)
+  elsif $assign == 'TWOS' and $twos == 'unassigned'
+    $twos=$resultat.count(2)*2
+
+
+  else
+  puts 'Input not valid, pick one of the unassigned above.'
+  end
+
+end
 
 puts '
  __     __      _    _ _______ ____________ ______
@@ -133,29 +197,7 @@ keepies
 kasta
 keepies
 kasta
+resultaten
+assignment
 
-
-
-
-
-puts "
-PLAYERS:   #{$player1}
-ONES:      #{$ones}
-TWOS:      #{$twos}
-THREES:    #{$threes}
-FOURS:     #{$fours}
-FIVES:     #{$fives}
-SIXES:     #{$sixes}
-SUM:       #{$sum}
-BONUS:     #{$bonus}
-3-KIND:    #{$kind3}
-4-KIND:    #{$kind4}
-HOUSE:     #{$house}
-S-STR:     #{$s_str}
-L-STR:     #{$l_str}
-YAHTZEE:   #{$yahtzee}
-CHANCE:    #{$chance}
-     "
-puts 'Assign your throw to one of the above.'
-$assign=gets.chomp
-
+puts $assign
