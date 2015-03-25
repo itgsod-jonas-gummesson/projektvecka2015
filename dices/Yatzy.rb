@@ -44,7 +44,7 @@ def setup
 
   sleep(1)
   puts '
-  Input Player name.'
+Input Player name.'
   $player1=gets.chomp
 
   until $hejsan == 15
@@ -214,6 +214,26 @@ TOTAL:     #{$total}"
   $keep3=0
   $keep4=0
   $keep5=0
+  puts "
+PLAYERS:   #{$player1}
+ONES:      #{$ones}
+TWOS:      #{$twos}
+THREES:    #{$threes}
+FOURS:     #{$fours}
+FIVES:     #{$fives}
+SIXES:     #{$sixes}
+SUM:       #{$sum}
+BONUS:     #{$bonus}
+PAIR:      #{$pair}
+2-PAIR:    #{$pair2}
+3-KIND:    #{$kind3}
+4-KIND:    #{$kind4}
+HOUSE:     #{$house}
+S-STR:     #{$s_str}
+L-STR:     #{$l_str}
+YAHTZEE:   #{$yahtzee}
+CHANCE:    #{$chance}
+TOTAL:     #{$total}"
 end
 def runda
   kasta
@@ -223,6 +243,14 @@ def runda
   kasta
   resultaten
   assignment
+  puts '
+ __    _  _______  _     _    ______    _______  __   __  __    _  ______   __
+|  |  | ||       || | _ | |  |    _ |  |       ||  | |  ||  |  | ||      | |  |
+|   |_| ||    ___|| || || |  |   | ||  |   _   ||  | |  ||   |_| ||  _    ||  |
+|       ||   |___ |       |  |   |_||_ |  | |  ||  |_|  ||       || | |   ||  |
+|  _    ||    ___||       |  |    __  ||  |_|  ||       ||  _    || |_|   ||__|
+| | |   ||   |___ |   _   |  |   |  | ||       ||       || | |   ||       | __
+|_|  |__||_______||__| |__|  |___|  |_||_______||_______||_|  |__||______| |__|'.red.on_light_white.blink
 end
 
 setup
