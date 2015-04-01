@@ -36,6 +36,29 @@ def setup
   $chance = 'NaN'
   $total = 'NaN'
 
+  def protokoll
+    puts "
+PLAYERS:   #{$player1}
+ONES:      #{$ones}
+TWOS:      #{$twos}
+THREES:    #{$threes}
+FOURS:     #{$fours}
+FIVES:     #{$fives}
+SIXES:     #{$sixes}
+SUM:       #{$sum}
+BONUS:     #{$bonus}
+PAIR:      #{$pair}
+2-PAIR:    #{$pair2}
+3-KIND:    #{$kind3}
+4-KIND:    #{$kind4}
+HOUSE:     #{$house}
+S-STR:     #{$s_str}
+L-STR:     #{$l_str}
+YAHTZEE:   #{$yahtzee}
+CHANCE:    #{$chance}
+TOTAL:     #{$total}"
+  end
+
   puts '
  __     __      _    _ _______ ____________ ______
  \ \   / //\   | |  | |__   __|___  /  ____|  ____|
@@ -55,7 +78,7 @@ Input Player name.'
   end
 end
 def kasta
-  puts 'Rolling dice...'
+  puts 'Rolling Dice...'
   if $keep1 == 0
     $dice1 = rand(1..6)
     puts "Dice one rolled #{$dice1}"
@@ -90,7 +113,7 @@ end
 def keepies
   $keep = gets.chomp
 
-  if $keep == 'one'
+  if $keep == 'one' or $keep == '1'
     if $keep1 == 0
       $keep1 = 1
       puts "Dice #{$keep} is being kept."
@@ -100,9 +123,8 @@ def keepies
       puts "Dice #{$keep} is no longer being kept"
       keepies
     end
-  end
 
-  if $keep == 'two'
+  elsif $keep == 'two' or $keep == '2'
     if $keep2 == 0
       $keep2 = 1
       puts "Dice #{$keep} is being kept."
@@ -112,9 +134,8 @@ def keepies
       puts "Dice #{$keep} is no longer being kept"
       keepies
     end
-  end
 
-  if $keep == 'three'
+  elsif $keep == 'three' or $keep == '3'
     if $keep3 == 0
       $keep3 = 1
       puts "Dice #{$keep} is being kept."
@@ -124,9 +145,8 @@ def keepies
       puts "Dice #{$keep} is no longer being kept"
       keepies
     end
-  end
 
-  if $keep == 'four'
+  elsif $keep == 'four' or $keep == '4'
     if $keep4 == 0
       $keep4 = 1
       puts "Dice #{$keep} is being kept."
@@ -136,9 +156,8 @@ def keepies
       puts "Dice #{$keep} is no longer being kept"
       keepies
     end
-  end
 
-  if $keep == 'five'
+  elsif $keep == 'five' or $keep == '5'
     if $keep5 == 0
       $keep5 = 1
       puts "Dice #{$keep} is being kept."
@@ -148,15 +167,21 @@ def keepies
       puts "Dice #{$keep} is no longer being kept"
       keepies
     end
-  end
 
-  if $keep == 'roll'
-  end
+  elsif $keep == 'all'
+    $keep1 = 1
+    $keep2 = 1
+    $keep3 = 1
+    $keep4 = 1
+    $keep5 = 1
 
-  if $keep != 'roll'
-  puts 'That is not a valid input, valid inputs are the names of the dice (one, two, three, four, five).'
-  puts 'Or type roll to roll the unkept dice. Typing the name of a kept dice will un-keep it.'
-  keepies
+  elsif $keep == 'roll'
+
+  else
+    puts 'That is not a valid input, valid inputs are the names of the Dice (one, two, three, four, five).'
+    puts 'Type \'all\' to keep all at once'
+    puts 'Type roll to roll the unkept Dice. Typing the name of a kept Dice will un-keep it.'
+    keepies
   end
 end
 def resultaten
@@ -168,27 +193,8 @@ def resultaten
   $resultat << $dice5
 end
 def assignment
-  puts "
-PLAYERS:   #{$player1}
-ONES:      #{$ones}
-TWOS:      #{$twos}
-THREES:    #{$threes}
-FOURS:     #{$fours}
-FIVES:     #{$fives}
-SIXES:     #{$sixes}
-SUM:       #{$sum}
-BONUS:     #{$bonus}
-PAIR:      #{$pair}
-2-PAIR:    #{$pair2}
-3-KIND:    #{$kind3}
-4-KIND:    #{$kind4}
-HOUSE:     #{$house}
-S-STR:     #{$s_str}
-L-STR:     #{$l_str}
-YAHTZEE:   #{$yahtzee}
-CHANCE:    #{$chance}
-TOTAL:     #{$total}"
 
+  protokoll
   puts 'Assign your throw to one of the above.'
   if $ones != 'Nan' and $twos != 'NaN' and $threes != 'NaN' and $fours != 'NaN' and $fives != 'NaN' and $sixes != 'NaN' and $ones+$twos+$threes+$fours+$fives+$sixes >= 63
     $bonus = 50
@@ -196,10 +202,10 @@ TOTAL:     #{$total}"
   $assign = gets.chomp
   $assign = $assign.upcase
   if $assign == 'ONES' or $assign == 'ONE' and $ones == 'NaN'
-    $ones=$resultat.count(1)
+    $ones = $resultat.count(1)
 
   elsif $assign == 'TWOS' or $assign == 'TWO' and $twos == 'NaN'
-    $twos=$resultat.count(2)*2
+    $twos = $resultat.count(2)*2
 
   elsif $assign == 'THREES' or $assign == 'THREE' and $threes == 'NaN'
     $threes = $resultat.count(3)*3
@@ -230,6 +236,7 @@ TOTAL:     #{$total}"
 
     elsif $resultat.count(1) > 1
       $pair = 2
+
     else
       $pair = 0
     end
@@ -238,73 +245,185 @@ TOTAL:     #{$total}"
     if $resultat.count(6) > 1
       $pair2 = 12
       $tjena = 6
+
     elsif $resultat.count(5) > 1
       $pair2 = 10
       $tjena = 5
+
     elsif $resultat.count(4) > 1
       $pair2 = 8
       $tjena = 4
+
     elsif $resultat.count(3) > 1
       $pair2 = 6
       $tjena = 3
+
     elsif $resultat.count(2) > 1
       $pair2 = 4
       $tjena = 2
+
     elsif $resultat.count(1) > 1
       $pair2 = 2
       $tjena = 1
+    end
+
     if $resultat.count(6) > 1 and $tjena != 6
       $pair2 += 12
 
-    elsif $resultat.count(5) > 1
+    elsif $resultat.count(5) > 1 and $tjena != 5
       $pair2 += 10
 
-    elsif $resultat.count(4) > 1
+    elsif $resultat.count(4) > 1 and $tjena != 4
       $pair2 += 8
 
-    elsif $resultat.count(3) > 1
+    elsif $resultat.count(3) > 1 and $tjena != 3
       $pair2 += 6
 
-    elsif $resultat.count(2) > 1
+    elsif $resultat.count(2) > 1 and $tjena != 2
       $pair2 += 4
-      $tjena = 2
-    elsif $resultat.count(1) > 1
+
+    elsif $resultat.count(1) > 1 and $tjena != 1
       $pair2 += 2
-      $tjena = 1
+
     else
       $pair2 = 0
     end
 
+  elsif $assign == '3-KIND' and $kind3 == 'NaN'
+    if $resultat.count(6) > 2
+      $kind3 = 18
+    elsif $resultat.count(5) > 2
+      $kind3 = 15
+
+    elsif $resultat.count(4) > 2
+      $kind3 = 12
+
+    elsif $resultat.count(3) > 2
+      $kind3 = 9
+
+    elsif $resultat.count(2) > 2
+      $kind3 = 6
+
+    elsif $resultat.count(1) > 2
+      $kind3 = 3
+
+    else
+      $kind3 = 0
+    end
+
+  elsif $assign == '4-KIND' and $kind4 == 'NaN'
+    if $resultat.count(6) > 3
+      $kind4 = 24
+    elsif $resultat.count(5) > 3
+      $kind4 = 20
+
+    elsif $resultat.count(4) > 3
+      $kind4 = 16
+
+    elsif $resultat.count(3) > 3
+      $kind4 = 12
+
+    elsif $resultat.count(2) > 3
+      $kind4 = 8
+
+    elsif $resultat.count(1) > 3
+      $kind4 = 4
+
+    else
+      $kind4 = 0
+    end
+
+  elsif $assign == 'HOUSE' and $house == 'NaN'
+    if $resultat.count(6) > 2
+      $house = 18
+      $tjena = 6
+
+    elsif $resultat.count(5) > 2
+      $house = 15
+      $tjena = 5
+
+    elsif $resultat.count(4) > 2
+      $house = 12
+      $tjena = 4
+
+    elsif $resultat.count(3) > 2
+      $house = 9
+      $tjena = 3
+
+    elsif $resultat.count(2) > 2
+      $house = 6
+      $tjena = 2
+
+    elsif $resultat.count(1) > 2
+      $house = 3
+      $tjena = 1
+
+    else
+      $house = 0
+
+    end
+
+    if $resultat.count(6) > 1 and $tjena != 6
+      $house += 12
+
+    elsif $resultat.count(5) > 1 and $tjena != 5
+      $house += 10
+
+    elsif $resultat.count(4) > 1 and $tjena != 4
+      $house += 8
+
+    elsif $resultat.count(3) > 1 and $tjena != 3
+      $house += 6
+
+    elsif $resultat.count(2) > 1 and $tjena != 2
+      $house += 4
+
+    elsif $resultat.count(1) > 1 and $tjena != 1
+      $house += 2
+
+    end
+
+  elsif $assign == 'S-STR' and $s_str == 'NaN'
+    if $resultat.count(1) == 1 and $resultat.count(2) == 1 and $resultat.count(3) == 1 and $resultat.count(4) == 1 and $resultat.count(5) == 1
+      $s_str = 15
+    else
+      $s_str = 0
+    end
+
+  elsif $assign == 'L-STR' and $l_str == 'NaN'
+    if $resultat.count(2) == 1 and $resultat.count(3) == 1 and $resultat.count(4) == 1 and $resultat.count(5) == 1 and $resultat.count(6) == 1
+      $l_str = 20
+    else
+      $l_str = 0
+    end
+
+  elsif $assign == 'YAHTZEE' and $yahtzee == 'NaN'
+    if $resultat.count(1) == 5 or $resultat.count(2) == 5 or $resultat.count(3) == 5 or $resultat.count(4) == 5 or $resultat.count(5) == 5 or $resultat.count(6) == 5
+      $yahtzee = 50
+    else
+      $yahtzee = 0
+    end
+
+  elsif $assign == 'CHANCE' and $chance == 'NaN'
+    $chance = $resultat.count(1).to_i + $resultat.count(2).to_i*2 + $resultat.count(3).to_i*3 + $resultat.count(4).to_i*4 + $resultat.count(5).to_i*5 + $resultat.count(6).to_i*6
 
   else
-  puts 'Input not valid, pick one of the unassigned above.'
+    puts 'Input not valid, pick one of the unassigned above.'
     assignment
   end
+
+  $sum = $ones.to_i + $twos.to_i + $threes.to_i + $fours.to_i + $fives.to_i + $sixes.to_i
+  $total = $sum.to_i + $bonus.to_i + $pair.to_i + $pair2.to_i + $kind3.to_i + $kind4.to_i + $house.to_i + $s_str.to_i + $l_str.to_i + $yahtzee.to_i + $chance.to_i
+
+
   $keep1 = 0
   $keep2 = 0
   $keep3 = 0
   $keep4 = 0
   $keep5 = 0
-  puts "
-PLAYERS:   #{$player1}
-ONES:      #{$ones}
-TWOS:      #{$twos}
-THREES:    #{$threes}
-FOURS:     #{$fours}
-FIVES:     #{$fives}
-SIXES:     #{$sixes}
-SUM:       #{$sum}
-BONUS:     #{$bonus}
-PAIR:      #{$pair}
-2-PAIR:    #{$pair2}
-3-KIND:    #{$kind3}
-4-KIND:    #{$kind4}
-HOUSE:     #{$house}
-S-STR:     #{$s_str}
-L-STR:     #{$l_str}
-YAHTZEE:   #{$yahtzee}
-CHANCE:    #{$chance}
-TOTAL:     #{$total}"
+  $tjena = 0
+
+  protokoll
 end
 def runda
   kasta
@@ -321,7 +440,10 @@ def runda
 |       ||   |___ |       |  |   |_||_ |  | |  ||  |_|  ||       || | |   ||  |
 |  _    ||    ___||       |  |    __  ||  |_|  ||       ||  _    || |_|   ||__|
 | | |   ||   |___ |   _   |  |   |  | ||       ||       || | |   ||       | __
-|_|  |__||_______||__| |__|  |___|  |_||_______||_______||_|  |__||______| |__|'.red.on_light_white.blink
+|_|  |__||_______||__| |__|  |___|  |_||_______||_______||_|  |__||______| |__|
+'.red.on_light_white.blink
 end
 
 setup
+
+
