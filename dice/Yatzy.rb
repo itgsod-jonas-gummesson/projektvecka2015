@@ -3,6 +3,8 @@ def setup
 
   $hejsan = 0
 
+  $tjena = 0
+
   $dice1 = rand(1..6)
   $dice2 = rand(1..6)
   $dice3 = rand(1..6)
@@ -193,18 +195,87 @@ TOTAL:     #{$total}"
   end
   $assign = gets.chomp
   $assign = $assign.upcase
-  if $assign == 'ONES' and $ones == 'NaN'
+  if $assign == 'ONES' or $assign == 'ONE' and $ones == 'NaN'
     $ones=$resultat.count(1)
-  elsif $assign == 'TWOS' and $twos == 'NaN'
+
+  elsif $assign == 'TWOS' or $assign == 'TWO' and $twos == 'NaN'
     $twos=$resultat.count(2)*2
-  elsif $assign == 'THREES' and $threes == 'NaN'
+
+  elsif $assign == 'THREES' or $assign == 'THREE' and $threes == 'NaN'
     $threes = $resultat.count(3)*3
-  elsif $assign == 'FOURS' and $fours == 'NaN'
+
+  elsif $assign == 'FOURS' or $assign == 'FOUR' and $fours == 'NaN'
     $fours = $resultat.count(4)*4
-  elsif $assign == 'FIVES' and $fives == 'NaN'
+
+  elsif $assign == 'FIVES' or $assign == 'FIVE' and $fives == 'NaN'
     $fives = $resultat.count(5)*5
-  elsif $assign == 'SIXES' and $sixes == 'NaN'
+
+  elsif $assign == 'SIXES' or $assign == 'SIX' and $sixes == 'NaN'
     $sixes = $resultat.count(6)*6
+
+  elsif $assign == 'PAIR' or $assign == 'PEAR' and $pair == 'NaN'
+    if $resultat.count(6) > 1
+      $pair = 12
+    elsif $resultat.count(5) > 1
+      $pair = 10
+
+    elsif $resultat.count(4) > 1
+      $pair = 8
+
+    elsif $resultat.count(3) > 1
+      $pair = 6
+
+    elsif $resultat.count(2) > 1
+      $pair = 4
+
+    elsif $resultat.count(1) > 1
+      $pair = 2
+    else
+      $pair = 0
+    end
+
+  elsif $assign == '2-PAIR' and $pair2 == 'NaN'
+    if $resultat.count(6) > 1
+      $pair2 = 12
+      $tjena = 6
+    elsif $resultat.count(5) > 1
+      $pair2 = 10
+      $tjena = 5
+    elsif $resultat.count(4) > 1
+      $pair2 = 8
+      $tjena = 4
+    elsif $resultat.count(3) > 1
+      $pair2 = 6
+      $tjena = 3
+    elsif $resultat.count(2) > 1
+      $pair2 = 4
+      $tjena = 2
+    elsif $resultat.count(1) > 1
+      $pair2 = 2
+      $tjena = 1
+    if $resultat.count(6) > 1 and $tjena != 6
+      $pair2 += 12
+
+    elsif $resultat.count(5) > 1
+      $pair2 += 10
+
+    elsif $resultat.count(4) > 1
+      $pair2 += 8
+
+    elsif $resultat.count(3) > 1
+      $pair2 += 6
+
+    elsif $resultat.count(2) > 1
+      $pair2 += 4
+      $tjena = 2
+    elsif $resultat.count(1) > 1
+      $pair2 += 2
+      $tjena = 1
+    else
+      $pair2 = 0
+    end
+
+
   else
   puts 'Input not valid, pick one of the unassigned above.'
     assignment
